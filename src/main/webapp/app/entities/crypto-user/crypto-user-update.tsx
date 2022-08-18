@@ -8,6 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { IUser } from 'app/shared/model/user.model';
+import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { ICryptoUser } from 'app/shared/model/crypto-user.model';
 import { getEntity, updateEntity, createEntity, reset } from './crypto-user.reducer';
 
@@ -19,6 +21,7 @@ export const CryptoUserUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
+  const users = useAppSelector(state => state.userManagement.users);
   const cryptoUserEntity = useAppSelector(state => state.cryptoUser.entity);
   const loading = useAppSelector(state => state.cryptoUser.loading);
   const updating = useAppSelector(state => state.cryptoUser.updating);
@@ -34,6 +37,8 @@ export const CryptoUserUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
+
+    dispatch(getUsers({}));
   }, []);
 
   useEffect(() => {
@@ -46,6 +51,7 @@ export const CryptoUserUpdate = () => {
     const entity = {
       ...cryptoUserEntity,
       ...values,
+      internalUser: users.find(it => it.id.toString() === values.internalUser.toString()),
     };
 
     if (isNew) {
@@ -60,6 +66,7 @@ export const CryptoUserUpdate = () => {
       ? {}
       : {
           ...cryptoUserEntity,
+          internalUser: cryptoUserEntity?.internalUser?.id,
         };
 
   return (
@@ -78,6 +85,16 @@ export const CryptoUserUpdate = () => {
           ) : (
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
               {!isNew ? <ValidatedField name="id" required readOnly id="crypto-user-id" label="ID" validate={{ required: true }} /> : null}
+              <ValidatedField id="crypto-user-internalUser" name="internalUser" data-cy="internalUser" label="Internal User" type="select">
+                <option value="" key="0" />
+                {users
+                  ? users.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/crypto-user" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

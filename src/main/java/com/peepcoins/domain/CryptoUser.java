@@ -23,6 +23,10 @@ public class CryptoUser implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @OneToOne
+    @JoinColumn(unique = true)
+    private User internalUser;
+
     @OneToMany(mappedBy = "cryptoUser")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "cryptos", "cryptoUser" }, allowSetters = true)
@@ -41,6 +45,19 @@ public class CryptoUser implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public User getInternalUser() {
+        return this.internalUser;
+    }
+
+    public void setInternalUser(User user) {
+        this.internalUser = user;
+    }
+
+    public CryptoUser internalUser(User user) {
+        this.setInternalUser(user);
+        return this;
     }
 
     public Set<WatchList> getWatchLists() {

@@ -29,7 +29,7 @@ public class WatchList implements Serializable {
     private Set<Crypto> cryptos = new HashSet<>();
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "watchLists" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "internalUser", "watchLists" }, allowSetters = true)
     private CryptoUser cryptoUser;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

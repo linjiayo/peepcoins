@@ -34,9 +34,9 @@ relationship OneToMany {
 	WatchList{crypto} to Crypto
 }
 
-//relationship OneToOne {
-//    CryptoUser{internalUser} to User
-//}
+relationship OneToOne {
+    CryptoUser{internalUser} to User
+}
 
 // Set pagination options
 paginate Crypto with infinite-scroll

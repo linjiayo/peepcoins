@@ -34,8 +34,7 @@ public class CryptoUserServiceImpl implements CryptoUserService {
     @Override
     public CryptoUser update(CryptoUser cryptoUser) {
         log.debug("Request to save CryptoUser : {}", cryptoUser);
-        // no save call needed as we have no fields that can be updated
-        return cryptoUser;
+        return cryptoUserRepository.save(cryptoUser);
     }
 
     @Override
@@ -46,7 +45,8 @@ public class CryptoUserServiceImpl implements CryptoUserService {
             .findById(cryptoUser.getId())
             .map(existingCryptoUser -> {
                 return existingCryptoUser;
-            }); // .map(cryptoUserRepository::save)
+            })
+            .map(cryptoUserRepository::save);
     }
 
     @Override

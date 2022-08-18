@@ -12,6 +12,12 @@
   "readOnly": false,
   "relationships": [
     {
+      "otherEntityName": "user",
+      "ownerSide": true,
+      "relationshipName": "internalUser",
+      "relationshipType": "one-to-one"
+    },
+    {
       "otherEntityName": "watchList",
       "otherEntityRelationshipName": "cryptoUser",
       "relationshipName": "watchList",

@@ -47,6 +47,7 @@ export const CryptoUser = () => {
             <thead>
               <tr>
                 <th>ID</th>
+                <th>Internal User</th>
                 <th />
               </tr>
             </thead>
@@ -58,6 +59,7 @@ export const CryptoUser = () => {
                       {cryptoUser.id}
                     </Button>
                   </td>
+                  <td>{cryptoUser.internalUser ? cryptoUser.internalUser.id : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/crypto-user/${cryptoUser.id}`} color="info" size="sm" data-cy="entityDetailsButton">

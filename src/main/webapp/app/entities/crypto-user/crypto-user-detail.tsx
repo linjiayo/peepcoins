@@ -28,6 +28,8 @@ export const CryptoUserDetail = () => {
             <span id="id">ID</span>
           </dt>
           <dd>{cryptoUserEntity.id}</dd>
+          <dt>Internal User</dt>
+          <dd>{cryptoUserEntity.internalUser ? cryptoUserEntity.internalUser.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/crypto-user" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>
