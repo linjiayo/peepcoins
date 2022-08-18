@@ -1,0 +1,33 @@
+{
+  "applications": "*",
+  "changelogDate": "20220818201100",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "watch_list",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "WatchList",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "crypto",
+      "otherEntityRelationshipName": "watchList",
+      "relationshipName": "crypto",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "cryptoUser",
+      "otherEntityRelationshipName": "watchList",
+      "relationshipName": "cryptoUser",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

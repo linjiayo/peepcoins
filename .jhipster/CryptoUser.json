@@ -1,0 +1,22 @@
+{
+  "applications": "*",
+  "changelogDate": "20220818203823",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "crypto_user",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "CryptoUser",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "watchList",
+      "otherEntityRelationshipName": "cryptoUser",
+      "relationshipName": "watchList",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

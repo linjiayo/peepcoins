@@ -48,6 +48,11 @@ public class CacheConfiguration {
             createCache(cm, com.peepcoins.domain.User.class.getName());
             createCache(cm, com.peepcoins.domain.Authority.class.getName());
             createCache(cm, com.peepcoins.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.peepcoins.domain.WatchList.class.getName());
+            createCache(cm, com.peepcoins.domain.WatchList.class.getName() + ".cryptos");
+            createCache(cm, com.peepcoins.domain.CryptoUser.class.getName());
+            createCache(cm, com.peepcoins.domain.CryptoUser.class.getName() + ".watchLists");
+            createCache(cm, com.peepcoins.domain.Crypto.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

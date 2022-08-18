@@ -1,0 +1,89 @@
+{
+  "applications": "*",
+  "changelogDate": "20220818201059",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "crypto",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "symbol",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "currentPrice",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "marketCap",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "marketCapRank",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "totalVolume",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "high24",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "low24",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "priceChange24",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "priceChangePercentage24hr",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "totalSupply",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "ath",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "athDate",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "atl",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "atlDate",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Crypto",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "watchList",
+      "otherEntityRelationshipName": "crypto",
+      "relationshipName": "watchList",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

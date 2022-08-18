@@ -1,0 +1,48 @@
+
+entity Crypto {
+	id String required
+    symbol String
+    name String required
+    currentPrice Double
+    marketCap Long
+    marketCapRank Integer
+    totalVolume Long
+    high24 Double
+    low24 Double
+    priceChange24 Double
+    priceChangePercentage24hr Double
+    totalSupply Long
+    ath Double
+    athDate String
+    atl Double
+    atlDate String
+}
+
+
+entity WatchList {
+	id Long
+}
+
+entity CryptoUser {
+}
+
+relationship OneToMany {
+	CryptoUser{WatchList} to WatchList{CryptoUser}
+}
+
+relationship OneToMany {
+	WatchList{crypto} to Crypto
+}
+
+//relationship OneToOne {
+//    CryptoUser{internalUser} to User
+//}
+
+// Set pagination options
+paginate Crypto with infinite-scroll
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+service all with serviceImpl
+
