@@ -7,14 +7,20 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 import javax.annotation.PostConstruct;
+
+import com.peepcoins.domain.Crypto;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
+import org.springframework.web.client.RestTemplate;
 import tech.jhipster.config.DefaultProfileUtil;
 import tech.jhipster.config.JHipsterConstants;
 
@@ -99,5 +105,22 @@ public class PeepcoinsApp {
             contextPath,
             env.getActiveProfiles().length == 0 ? env.getDefaultProfiles() : env.getActiveProfiles()
         );
+    }
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return builder.build();
+    }
+
+    @Bean
+    public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
+        return args -> {
+            Crypto[] cryptos = restTemplate.getForObject(
+                "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false",
+                    Crypto[].class);
+            assert cryptos != null;
+            Arrays.stream(cryptos).forEach((crypto) -> {
+                log.info(crypto.toString());
+            });
+        };
     }
 }

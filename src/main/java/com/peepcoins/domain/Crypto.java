@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.domain.Persistable;
@@ -14,6 +16,7 @@ import org.springframework.data.domain.Persistable;
 @Entity
 @Table(name = "crypto")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Crypto implements Serializable, Persistable<String> {
 
     private static final long serialVersionUID = 1L;
@@ -21,6 +24,7 @@ public class Crypto implements Serializable, Persistable<String> {
     @NotNull
     @Id
     @Column(name = "id", nullable = false)
+    @JsonProperty("id")
     private String id;
 
     @Column(name = "symbol")
@@ -31,42 +35,53 @@ public class Crypto implements Serializable, Persistable<String> {
     private String name;
 
     @Column(name = "current_price")
+    @JsonProperty("current_price")
     private Double currentPrice;
 
     @Column(name = "market_cap")
+    @JsonProperty("market_cap")
     private Long marketCap;
 
     @Column(name = "market_cap_rank")
+    @JsonProperty("market_cap_rank")
     private Integer marketCapRank;
 
     @Column(name = "total_volume")
+    @JsonProperty("total_volume")
     private Long totalVolume;
 
     @Column(name = "high_24")
+    @JsonProperty("high_24h")
     private Double high24;
 
     @Column(name = "low_24")
+    @JsonProperty("low_24h")
     private Double low24;
 
     @Column(name = "price_change_24")
+    @JsonProperty("price_change_24h")
     private Double priceChange24;
 
     @Column(name = "price_change_percentage_24_hr")
+    @JsonProperty("price_change_percentage_24h")
     private Double priceChangePercentage24hr;
 
     @Column(name = "total_supply")
+    @JsonProperty("total_supply")
     private Long totalSupply;
 
     @Column(name = "ath")
     private Double ath;
 
     @Column(name = "ath_date")
+    @JsonProperty("ath_date")
     private String athDate;
 
     @Column(name = "atl")
     private Double atl;
 
     @Column(name = "atl_date")
+    @JsonProperty("atl_date")
     private String atlDate;
 
     @Transient
