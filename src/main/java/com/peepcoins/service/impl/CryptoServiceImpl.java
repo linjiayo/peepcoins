@@ -3,11 +3,15 @@ package com.peepcoins.service.impl;
 import com.peepcoins.domain.Crypto;
 import com.peepcoins.repository.CryptoRepository;
 import com.peepcoins.service.CryptoService;
+import com.peepcoins.web.rest.CryptoRestClient;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +25,9 @@ public class CryptoServiceImpl implements CryptoService {
     private final Logger log = LoggerFactory.getLogger(CryptoServiceImpl.class);
 
     private final CryptoRepository cryptoRepository;
+
+    @Autowired
+    private CryptoRestClient cryptoRestClient;
 
     public CryptoServiceImpl(CryptoRepository cryptoRepository) {
         this.cryptoRepository = cryptoRepository;
@@ -117,5 +124,14 @@ public class CryptoServiceImpl implements CryptoService {
         cryptoRepository.deleteById(id);
     }
 
-
+    @Override
+    public void fetchAndUpdateAll() {
+        log.debug("Request to fetch and update all Crypto");
+        ResponseEntity<Crypto[]> cryptos = cryptoRestClient.getCryptoInfo();
+        if (cryptos.getStatusCode() == HttpStatus.OK && cryptos.getBody() != null) {
+            for (Crypto c : cryptos.getBody()) {
+                update(c);
+            }
+        }
+    }
 }

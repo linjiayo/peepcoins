@@ -1,14 +1,13 @@
 package com.peepcoins;
 
 import com.peepcoins.config.ApplicationProperties;
+import com.peepcoins.domain.Crypto;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 import javax.annotation.PostConstruct;
-
-import com.peepcoins.domain.Crypto;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,21 +105,21 @@ public class PeepcoinsApp {
             env.getActiveProfiles().length == 0 ? env.getDefaultProfiles() : env.getActiveProfiles()
         );
     }
+
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();
     }
-
-    @Bean
-    public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
-        return args -> {
-            Crypto[] cryptos = restTemplate.getForObject(
-                "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false",
-                    Crypto[].class);
-            assert cryptos != null;
-            Arrays.stream(cryptos).forEach((crypto) -> {
-                log.info(crypto.toString());
-            });
-        };
-    }
+    //    @Bean
+    //    public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
+    //        return args -> {
+    //            Crypto[] cryptos = restTemplate.getForObject(
+    //                "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false",
+    //                    Crypto[].class);
+    //            assert cryptos != null;
+    //            Arrays.stream(cryptos).forEach((crypto) -> {
+    //                log.info(crypto.toString());
+    //            });
+    //        };
+    //    }
 }
