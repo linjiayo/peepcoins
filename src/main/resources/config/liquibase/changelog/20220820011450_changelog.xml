@@ -1,0 +1,116 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.12.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="lingain (generated)" id="1660958098613-1">
+        <createTable tableName="crypto">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="cryptoPK"/>
+            </column>
+            <column name="ath" type="DOUBLE"/>
+            <column name="ath_date" type="VARCHAR(255)"/>
+            <column name="atl" type="DOUBLE"/>
+            <column name="atl_date" type="VARCHAR(255)"/>
+            <column name="current_price" type="DOUBLE"/>
+            <column name="high_24" type="DOUBLE"/>
+            <column name="last_updated" type="VARCHAR(255)"/>
+            <column name="low_24" type="DOUBLE"/>
+            <column name="market_cap" type="BIGINT"/>
+            <column name="market_cap_rank" type="INT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price_change_24" type="DOUBLE"/>
+            <column name="price_change_percentage_24_hr" type="DOUBLE"/>
+            <column name="symbol" type="VARCHAR(255)"/>
+            <column name="total_supply" type="BIGINT"/>
+            <column name="total_volume" type="BIGINT"/>
+            <column name="watch_list_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lingain (generated)" id="1660958098613-2">
+        <createTable tableName="crypto_user">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="crypto_userPK"/>
+            </column>
+            <column name="internal_user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lingain (generated)" id="1660958098613-3">
+        <createTable tableName="jhi_authority">
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="jhi_authorityPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lingain (generated)" id="1660958098613-4">
+        <createTable tableName="jhi_user">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="jhi_userPK"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="TIMESTAMP"/>
+            <column name="last_modified_by" type="VARCHAR(50)"/>
+            <column name="last_modified_date" type="TIMESTAMP"/>
+            <column name="activated" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="activation_key" type="VARCHAR(20)"/>
+            <column name="email" type="VARCHAR(254)"/>
+            <column name="first_name" type="VARCHAR(50)"/>
+            <column name="image_url" type="VARCHAR(256)"/>
+            <column name="lang_key" type="VARCHAR(10)"/>
+            <column name="last_name" type="VARCHAR(50)"/>
+            <column name="login" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password_hash" type="VARCHAR(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reset_date" type="TIMESTAMP"/>
+            <column name="reset_key" type="VARCHAR(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lingain (generated)" id="1660958098613-5">
+        <createTable tableName="jhi_user_authority">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="jhi_user_authorityPK"/>
+            </column>
+            <column name="authority_name" type="VARCHAR(50)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="jhi_user_authorityPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="lingain (generated)" id="1660958098613-6">
+        <createTable tableName="watch_list">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="watch_listPK"/>
+            </column>
+            <column name="crypto_user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lingain (generated)" id="1660958098613-7">
+        <addUniqueConstraint columnNames="internal_user_id" constraintName="UC_CRYPTO_USERINTERNAL_USER_ID_COL" tableName="crypto_user"/>
+    </changeSet>
+    <changeSet author="lingain (generated)" id="1660958098613-8">
+        <addUniqueConstraint columnNames="email" constraintName="UC_JHI_USEREMAIL_COL" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="lingain (generated)" id="1660958098613-9">
+        <addUniqueConstraint columnNames="login" constraintName="UC_JHI_USERLOGIN_COL" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="lingain (generated)" id="1660958098613-10">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="jhi_user_authority" constraintName="FK290okww5jujghp4el5i7mgwu0" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user" validate="true"/>
+    </changeSet>
+    <changeSet author="lingain (generated)" id="1660958098613-11">
+        <addForeignKeyConstraint baseColumnNames="authority_name" baseTableName="jhi_user_authority" constraintName="FK4psxl0jtx6nr7rhqbynr6itoc" deferrable="false" initiallyDeferred="false" referencedColumnNames="name" referencedTableName="jhi_authority" validate="true"/>
+    </changeSet>
+    <changeSet author="lingain (generated)" id="1660958098613-12">
+        <addForeignKeyConstraint baseColumnNames="watch_list_id" baseTableName="crypto" constraintName="FKbdo1h1208vhnyixilk3o24rq8" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="watch_list" validate="true"/>
+    </changeSet>
+    <changeSet author="lingain (generated)" id="1660958098613-13">
+        <addForeignKeyConstraint baseColumnNames="internal_user_id" baseTableName="crypto_user" constraintName="FKg02mgmj5l0vy90ythdy5txc82" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user" validate="true"/>
+    </changeSet>
+    <changeSet author="lingain (generated)" id="1660958098613-14">
+        <addForeignKeyConstraint baseColumnNames="crypto_user_id" baseTableName="watch_list" constraintName="FKm5lak7atydrlqkug02ivxfhe1" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="crypto_user" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
